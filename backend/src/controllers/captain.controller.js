@@ -72,8 +72,6 @@ const logoutCaptainController = (req, res) => {
 }
 
 const profileCaptainController = async (req, res) => {
-    const { token } = req.cookies;
-    await BlacklistToken.create({ token });
     const captain = req.captain;
     return res.status(200).json({ message: "Captain profile fetched successfully", captain });
 }

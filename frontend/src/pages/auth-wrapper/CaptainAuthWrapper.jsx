@@ -9,29 +9,37 @@ const CaptainAuthWrapper = ({ children }) => {
     const { captain, setCaptain } = useContext(CaptainDataContext)
 
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!token) {
             navigate("/login-captain");
+            return;
         }
-    }, [token]);
 
-    axios.get("/api/captain/profile", { withCredentials: true })
-        .then(res => {
-            if (res.status == 200) {
-                setCaptain(res.data.captain)
-                setLoading(false);
-            }
-        })
-        .catch(err =>{
-            console.log(err);
-            navigate("/login-captain")
-        });
+        let isMounted = true;
+        axios.get("/api/captain/profile", { withCredentials: true })
+            .then(res => {
+                if (!isMounted) return;
+                if (res.status == 200) {
+                    setCaptain(res.data.captain)
+                }
+            })
+            .catch(err =>{
+                console.log(err);
+                navigate("/login-captain")
+            })
+            .finally(() => {
+                if (isMounted) setLoading(false);
+            });
 
-        if(loading){
-            return <div className='w-full h-screen text-center font-semibold'>
-                Loading...
-            </div>
-        }
+        return () => { isMounted = false };
+    }, [token, navigate, setCaptain]);
+
+    if(loading){
+        return <div className='w-full h-screen text-center font-semibold'>
+            Loading...
+        </div>
+    }
     return (
         <div>
             {children}
