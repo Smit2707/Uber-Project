@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
 const userRegisterController = async (req, res) => {
-    console.log(req.body)
     const { fullName: { firstName, lastName }, email, password } = req.body;
 
     if (!firstName || !lastName || !email || !password) {
