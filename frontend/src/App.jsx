@@ -3,12 +3,11 @@ import IndexRoutes from './routes/IndexRoutes'
 import { ToastContainer } from 'react-toastify'
 import { userDataContext } from './context/UserContext'
 const App = () => {
-  const userData = useContext(userDataContext)
-  console.log(userData)
+  const userData = useContext(userDataContext);
   return (
     <div>
       <IndexRoutes />
-      <ToastContainer />
+      <ToastContainer theme='dark' autoClose={3000} position='top-right' />
     </div>
   )
 }

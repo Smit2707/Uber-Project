@@ -1,6 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useAsyncValue, useNavigate } from 'react-router-dom'
+import axios from "../../api/Axios"
+import { toast } from 'react-toastify'
+
 
 const Register = () => {
   const {
@@ -10,17 +13,28 @@ const Register = () => {
     formState: { errors, isSubmitting }
   } = useForm();
 
-  const onSubmit = (data) => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
     const payload = {
-      fullname: {
-        firstname: data.firstname,
-        lastname: data.lastname
+      fullName: {
+        firstName: data.firstname,
+        lastName: data.lastname
       },
       email: data.email,
       password: data.password
     }
     console.log(payload)
-    reset()
+    try {
+      const response = await axios.post("/api/auth/register", payload, { withCredentials: true });
+      console.log(response);
+      toast.success("Registration Successfull");
+      navigate("/login");
+      reset();
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
