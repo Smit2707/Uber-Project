@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import axios from "../../api/Axios"
+import { CaptainDataContext } from '../../context/CaptainContext'
+import { toast } from 'react-toastify'
 const CaptainLogin = () => {
   const {
     register,
@@ -10,9 +12,24 @@ const CaptainLogin = () => {
     formState: { errors, isSubmitting }
   } = useForm();
 
-  const onSubmit = (captainData) => {
+  const { captain, setCaptain } = useContext(CaptainDataContext)
+  const navigate = useNavigate();
+
+  const onSubmit = async (captainData) => {
     console.log(captainData);
-    reset();
+    try {
+      const response = await axios.post("/api/captain/login", captainData, { withCredentials: true });
+      console.log(response);
+      if (response.status == 200) {
+        toast.success("Captain Login Successfully.")
+        navigate("/captain-home");
+        localStorage.setItem("captainToken", response.data.token);
+        // setCaptain(response.data.captain);
+        reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

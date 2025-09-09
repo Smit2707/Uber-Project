@@ -6,7 +6,9 @@ import CaptainLogin from '../pages/captain/CaptainLogin'
 import { Route, Routes } from 'react-router-dom'
 import StartScreen from '../pages/StartScreen'
 import Home from '../pages/Home'
-import UserAuthWrapper from '../pages/user-auth-wrapper/UserAuthWrapper'
+import UserAuthWrapper from '../pages/auth-wrapper/UserAuthWrapper'
+import CaptainHome from '../pages/captain/CaptainHome'
+import CaptainAuthWrapper from '../pages/auth-wrapper/CaptainAuthWrapper'
 
 const IndexRoutes = () => {
   const token = localStorage.getItem("token")
@@ -31,6 +33,14 @@ const IndexRoutes = () => {
       <Route
         path='/login-captain'
         element={<CaptainLogin />}
+      />
+      <Route
+        path='/captain-home'
+        element={
+          <CaptainAuthWrapper>
+            <CaptainHome />
+          </CaptainAuthWrapper>
+        }
       />
       <Route
         path='/home'
