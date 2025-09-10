@@ -1,7 +1,6 @@
 import React from 'react'
 
 const LocationSearchPanel = ({ vehiclePanelOpen, setVehiclePanelOpen, setPanelOpen }) => {
-    console.log(vehiclePanelOpen)
     const location = [
         "24B-Kapoor's Cafe Sheriyans Coding School, Bhopal",
         "24B-Mahavirnagar, Himmatnagar, Gujarat",

@@ -4,6 +4,10 @@ import { useGSAP } from "@gsap/react"
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css'
 import LocationSearchPanel from '../components/LocationSearchPanel';
+import VehiclePanel from '../components/VehiclePanel';
+import ConfirmedRide from '../components/ConfirmedRide';
+import LookingForDriver from '../components/LookingForDriver';
+import WaitingForDriver from '../components/WaitingForDriver';
 
 const Home = () => {
   const data = useContext(userDataContext);
@@ -13,7 +17,13 @@ const Home = () => {
   const [panelOpen, setPanelOpen] = useState(false);
   const panelRef = useRef(null);
   const vehiclePanelRef = useRef(null);
+  const confirmRidePanelRef = useRef(null);
+  const vehicleFoundRef = useRef(null);
+  const driverFoundRef = useRef(null);
   const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const [vehicleFound, setVehicleFound] = useState(false);
+  const [driverFound, setDriverFound] = useState(false);
   const submitHandler = (e) => {
     e.preventDefault();
   }
@@ -47,6 +57,45 @@ const Home = () => {
       })
     }
   }, [vehiclePanelOpen]);
+
+  useGSAP(() => {
+    if (confirmRidePanel) {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: "translateY(0)"
+      })
+    }
+    else {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: "translateY(100%)"
+      })
+    }
+  }, [confirmRidePanel]);
+
+  useGSAP(() => {
+    if (vehicleFound) {
+      gsap.to(vehicleFoundRef.current, {
+        transform: "translateY(0)"
+      })
+    }
+    else {
+      gsap.to(vehicleFoundRef.current, {
+        transform: "translateY(100%)"
+      })
+    }
+  }, [vehicleFound]);
+  
+  useGSAP(() => {
+    if (driverFound) {
+      gsap.to(driverFoundRef.current, {
+        transform: "translateY(0)"
+      })
+    }
+    else {
+      gsap.to(driverFoundRef.current, {
+        transform: "translateY(100%)"
+      })
+    }
+  }, [driverFound]);
 
   return (
     <div className='relative h-screen overflow-hidden'>
@@ -94,42 +143,22 @@ const Home = () => {
         </div>
       </div>
       <div ref={vehiclePanelRef} className='fixed z-10 bottom-0 bg-white py-5 w-full px-3 translate-y-full'>
-        <div className='flex items-center justify-between mb-5'>
-          <h3 className='text-xl font-semibold'>Choose Your Ride</h3>
-          <h5
-            onClick={() => {
-              setVehiclePanelOpen(false)
-              setPanelOpen(true)
-            }}
-          ><i className="ri-arrow-go-back-line"></i></h5>
-        </div>
-        <div className='flex justify-between items-center bg-zinc-100 mb-3 rounded-xl w-full hover:border hover:border-black hover:bg-white duration-200 ease-in-out transition-all hover:scale-[1.015] cursor-pointer'>
-          <img className='h-15' src="https://mobile-content.uber.com/launch-experience/ride.png" alt="" />
-          <div className='flex flex-col text-sm w-1/2 p-2 leading-tight'>
-            <h4 className='font-semibold'>UberGo <span><i className="ri-user-3-line font-medium"></i></span> 4</h4>
-            <h5>2 mins a way</h5>
-            <p className='text-xs text-gray-500'>Affordable, Compact Rides</p>
-          </div>
-          <h2 className='font-semibold text-xl pr-3'>Rs. 193</h2>
-        </div>
-        <div className='flex justify-between items-center bg-zinc-100 mb-3 rounded-xl w-full hover:border hover:border-black hover:bg-white duration-200 ease-in-out transition-all hover:scale-[1.015] cursor-pointer'>
-          <img className='h-15' src="https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Uber_Moto_India1.png" alt="" />
-          <div className='flex flex-col text-sm w-1/2 p-2 leading-tight'>
-            <h4 className='font-semibold'>UberGo <span><i className="ri-user-3-line font-medium"></i></span> 4</h4>
-            <h5>2 mins a way</h5>
-            <p className='text-xs text-gray-500'>Affordable, Compact Rides</p>
-          </div>
-          <h2 className='font-semibold text-xl pr-3'>Rs. 193</h2>
-        </div>
-        <div className='flex justify-between items-center bg-zinc-100 mb-3 rounded-xl w-full hover:border hover:border-black hover:bg-white duration-200 ease-in-out transition-all hover:scale-[1.015] cursor-pointer'>
-          <img className='h-10' src="https://imgs.search.brave.com/nf8BaJ2DzS-3XVL3_VQzPJo-Z0UYemmBssGvlLIkyEg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dWJlci1hc3NldHMu/Y29tL2ltYWdlL3Vw/bG9hZC9mX2F1dG8s/cV9hdXRvOmVjbyxj/X2ZpbGwsaF8zNjgs/d181NTIvdjE2NDg0/MzE3NzMvYXNzZXRz/LzFkL2RiOGM1Ni0w/MjA0LTRjZTQtODFj/ZS01NmExMWEwN2Zl/OTgvb3JpZ2luYWwv/VWJlcl9BdXRvXzU1/OHgzNzJfcGl4ZWxz/X0Rlc2t0b3AucG5n" alt="" />
-          <div className='flex flex-col text-sm w-1/2 p-2 leading-tight'>
-            <h4 className='font-semibold'>UberGo <span><i className="ri-user-3-line font-medium"></i></span> 4</h4>
-            <h5>2 mins a way</h5>
-            <p className='text-xs text-gray-500'>Affordable, Compact Rides</p>
-          </div>
-          <h2 className='font-semibold text-xl pr-3'>Rs. 193</h2>
-        </div>
+        <VehiclePanel setConfirmRidePanel={setConfirmRidePanel} setPanelOpen={setPanelOpen} setVehiclePanelOpen={setVehiclePanelOpen} />
+      </div>
+      <div ref={confirmRidePanelRef} className='fixed z-10 bottom-0 bg-white py-5 w-full px-3 translate-y-full'>
+        <ConfirmedRide setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} setVehiclePanelOpen={setVehiclePanelOpen} />
+      </div>
+      <div ref={vehicleFoundRef} className='fixed z-10 bottom-0 bg-white py-5 w-full px-3 translate-y-full'>
+        <LookingForDriver setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} />
+      </div>
+      <div
+        ref={driverFoundRef}
+        className='fixed z-10 bottom-0 bg-white py-5 w-full px-3 translate-y-full'
+      >
+        <WaitingForDriver
+          setVehicleFound={setVehicleFound}
+          setDriverFound={setDriverFound}
+        />
       </div>
     </div>
   )

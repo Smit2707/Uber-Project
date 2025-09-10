@@ -1,7 +1,7 @@
 import React from 'react'
 
-const VehicleCard = () => {
-    const vehicleData = [
+const VehicleCard = ({ setConfirmRidePanel }) => {
+    let vehicleData = [
         {
             vehicleType: "UberGo",
             vehicleCapacity: 4,
@@ -27,17 +27,32 @@ const VehicleCard = () => {
             afford: "Affordable, Compact Rides"
         },
     ]
+    // console.log(vehicleData);
     return (
-        <div className='flex justify-between items-center bg-zinc-100 mb-3 rounded-xl w-full hover:border hover:border-black hover:bg-white duration-200 ease-in-out transition-all hover:scale-[1.015] cursor-pointer'>
-            <img className='h-15' src="https://mobile-content.uber.com/launch-experience/ride.png" alt="" />
-            <div className='flex flex-col text-sm w-1/2 p-2 leading-tight'>
-                <h4 className='font-semibold'>UberGo <span><i className="ri-user-3-line font-medium"></i></span> 4</h4>
-                <h5>2 mins a way</h5>
-                <p className='text-xs text-gray-500'>Affordable, Compact Rides</p>
-            </div>
-            <h2 className='font-semibold text-xl pr-3'>Rs. 193</h2>
-        </div>
+        <>
+            {
+                vehicleData.map((elem, index) => {
+                    return (
+                        <div
+                            onClick={() => {
+                                setConfirmRidePanel(true);
+                            }}
+                            key={index}
+                            className='flex justify-between items-center bg-zinc-100 mb-3 rounded-xl w-full hover:border hover:border-black hover:bg-white duration-200 ease-in-out transition-all hover:scale-[1.015] cursor-pointer'
+                        >
+                            <img className='h-15' src={elem.src} alt={elem.vehicleType} />
+                            <div className='flex flex-col text-sm w-1/2 p-2 leading-tight'>
+                                <h4 className='font-semibold'>{elem.vehicleType} <span><i className="ri-user-3-line font-medium"></i></span> {elem.vehicleCapacity}</h4>
+                                <h5>{elem.time}</h5>
+                                <p className='text-xs text-gray-500'>{elem.afford}</p>
+                            </div>
+                            <h2 className='font-semibold text-xl pr-3'>{elem.price}</h2>
+                        </div>
+                    )
+                })
+            }
+        </>
     )
 }
 
-export default VehicleCard
+export default VehicleCard;
