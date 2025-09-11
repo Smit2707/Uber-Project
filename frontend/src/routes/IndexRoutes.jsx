@@ -9,7 +9,6 @@ import Home from '../pages/Home'
 import UserAuthWrapper from '../pages/auth-wrapper/UserAuthWrapper'
 import CaptainHome from '../pages/captain/CaptainHome'
 import CaptainAuthWrapper from '../pages/auth-wrapper/CaptainAuthWrapper'
-import Riding from '../pages/user/Riding'
 
 const IndexRoutes = () => {
   const token = localStorage.getItem("token")
@@ -21,7 +20,7 @@ const IndexRoutes = () => {
       />
       <Route
         path='/login'
-        element={<Login />}
+        element={token ? <Home /> : <Login />}
       />
       <Route
         path='/register'
@@ -51,14 +50,14 @@ const IndexRoutes = () => {
           </UserAuthWrapper>
         }
       />
-      <Route
+      {/* <Route
         path='/riding'
         element={
           <UserAuthWrapper>
             <Riding />
           </UserAuthWrapper>
         }
-      />
+      /> */}
     </Routes>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LookingForDriver = ({setConfirmRidePanel, setVehicleFound}) => {
+const LookingForDriver = ({ setConfirmRidePanel, setVehicleFound, setDriverFound }) => {
     return (
         <>
             <div className='flex items-center justify-between mb-5'>
@@ -24,13 +24,13 @@ const LookingForDriver = ({setConfirmRidePanel, setVehicleFound}) => {
                             <p className='text-[#555] text-sm'>New Delhi, India</p>
                         </div>
                     </div>
-                    <div className='flex justify-start items-center gap-3 border-t p-3 border-t-[#1111116b]'>
+                    {/* <div className='flex justify-start items-center gap-3 border-t p-3 border-t-[#1111116b]'>
                         <i className="ri-map-pin-range-line"></i>
                         <div>
                             <h3 className='font-semibold text-base'>Third Wave Coffee</h3>
                             <p className='text-[#555] text-sm'>Near Law Garden, West Delhi, India</p>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='flex justify-start items-center gap-3 border-t p-3 border-t-[#1111116b]'>
                         <i className="ri-wallet-3-fill"></i>
                         <div>
@@ -38,6 +38,14 @@ const LookingForDriver = ({setConfirmRidePanel, setVehicleFound}) => {
                             <p className='text-[#555] text-sm'>Cash</p>
                         </div>
                     </div>
+                    <button
+                        onClick={() => {
+                            setVehicleFound(false);
+                            setDriverFound(true);
+                        }}
+                        className='w-full flex items-center justify-center gap-3 bg-green-600 rounded font-[400] text-base mt-3 text-white text-center py-1'>
+                        Make Payment
+                    </button>
                 </div>
             </div>
         </>

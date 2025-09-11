@@ -149,7 +149,7 @@ const Home = () => {
         <ConfirmedRide setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} setVehiclePanelOpen={setVehiclePanelOpen} />
       </div>
       <div ref={vehicleFoundRef} className='fixed z-10 bottom-0 bg-white py-5 w-full px-3 translate-y-full'>
-        <LookingForDriver setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} />
+        <LookingForDriver setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} setDriverFound={setDriverFound} />
       </div>
       <div
         ref={driverFoundRef}
