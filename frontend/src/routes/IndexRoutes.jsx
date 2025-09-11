@@ -9,6 +9,7 @@ import Home from '../pages/Home'
 import UserAuthWrapper from '../pages/auth-wrapper/UserAuthWrapper'
 import CaptainHome from '../pages/captain/CaptainHome'
 import CaptainAuthWrapper from '../pages/auth-wrapper/CaptainAuthWrapper'
+import CaptainRiding from '../pages/captain/CaptainRiding'
 
 const IndexRoutes = () => {
   const token = localStorage.getItem("token")
@@ -58,6 +59,7 @@ const IndexRoutes = () => {
           </UserAuthWrapper>
         }
       /> */}
+      <Route path='/captain-riding' element={<CaptainRiding />} />
     </Routes>
   )
 }
